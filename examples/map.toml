@@ -1,0 +1,73 @@
+# Project map: which business or group each repository belongs to.
+#
+# How a repository finds its group (the first match wins):
+#   1. exclude          - never shown
+#   2. [[group]] repos  - repositories that you put in a group
+#   3. [[rule]]         - owner or name-prefix rules
+#   4. placements.json  - Claude's guesses for new repositories (the email lists them under "New this week")
+#
+# Names are not case-sensitive. Forks are always excluded.
+# A "section" groups several groups in the charts (for example a company with its clients and products).
+
+# Optional: repositories where you keep notes, plans and context for your agents. Their work does not count as
+# velocity, except work that clearly serves one of your groups (Claude decides, guided by the hints).
+operating = [
+  # "your-github-login/notes",
+]
+operating_hints = [
+  "Proposals, estimates and deliverables for a client -> that client's group",
+  "Raw notes, research capture, daily plans, run records, agent context -> operating",
+]
+
+exclude = [
+  # "your-github-login/sandbox",
+]
+
+[[group]]
+id = "company-web"
+name = "Website & marketing"
+section = "My company"
+kind = "firm"
+about = "My company's website, blog and marketing"
+repos = [
+  # "your-org/website",
+]
+
+[[group]]
+id = "client-a"
+name = "Client A"
+section = "My company"
+kind = "client"
+about = "Work for client A"
+repos = []
+
+[[group]]
+id = "product-a"
+name = "Product A"
+section = "My company"
+kind = "product"
+about = "My product A"
+repos = []
+
+[[group]]
+id = "side"
+name = "Side projects"
+section = "Side projects"
+about = "Projects that could ship or sell one day"
+repos = []
+
+[[group]]
+id = "personal"
+name = "Personal tools"
+section = "Personal tools"
+about = "Tools only I use"
+repos = []
+
+# Rules for repositories that are not listed above.
+[[rule]]
+owner = "client-a-org"            # every repository of this GitHub owner
+group = "client-a"
+
+[[rule]]
+prefixes = ["product-a"]          # repository names that start with this
+group = "product-a"

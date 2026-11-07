@@ -1,0 +1,57 @@
+# Weekly review settings. Replace every value marked CHANGE.
+
+[report]
+to = "you@example.com"            # CHANGE: who gets the report
+title = "Weekly review"
+timezone = "UTC"                  # CHANGE: IANA name, e.g. "Europe/Berlin", "America/New_York", "Asia/Singapore"
+send_day = "monday"               # the report covers the 7 days before this day
+send_hour = 7                     # local time; the scheduler sends at the first run after this hour
+top_projects = 8                  # rows in the project table; the rest go on one "+N more" line
+idle_days = 182                   # an idle project leaves the idle list after this many days
+map_url = ""                      # optional: a link to edit your map.toml (for example in a private repo)
+
+[summary]
+enabled = true                    # false = no Claude calls (no labels, no summary)
+model = "sonnet"                  # any model name the Claude Code CLI accepts
+style = "plain"                   # "plain" or "ste" (ASD-STE100 Simplified Technical English)
+reader = ""                       # optional: your name, for the summary
+
+[identity]
+# "Your work" = commits and PRs from any of these identities (GitHub search qualifiers).
+login = "your-github-login"       # CHANGE
+commit_queries = [
+  "author:your-github-login",     # CHANGE
+  # Agents that commit under another identity, for example:
+  # "author-email:bot@example.com",
+]
+pr_queries = [
+  "author:your-github-login",     # CHANGE
+  # Agents that open PRs as a GitHub App, for example:
+  # "author:app/your-github-app",
+]
+
+[plans]
+# Optional: a folder with dated priorities files (YYYY-MM-DD-anything.md). The summary compares plan and result.
+local_path = ""                   # e.g. "~/notes"
+daily_dir = ""                    # e.g. "journal" (relative to local_path, or to the repo below)
+plans_dir = ""                    # optional: plan files dated inside the week are listed by name
+repo = ""                         # optional fallback: "owner/repo" that holds the same folders
+max_chars = 8000
+
+[mail]
+method = "none"                   # "smtp", "command" or "none" (only write out/<week>.html)
+# --- smtp: any provider (Gmail, Outlook, Fastmail, iCloud, Amazon SES, your own server) ---
+smtp_host = "smtp.example.com"   # see references/mail.md for common providers
+smtp_port = 465
+smtp_security = "ssl"             # "ssl" (port 465) or "starttls" (port 587)
+username = "you@example.com"
+from = "Weekly review <you@example.com>"
+password_env = "WEEKLY_REVIEW_SMTP_PASSWORD"   # read from this environment variable, or:
+password_command = ""             # a command that prints the password (keychain or password manager); see references/mail.md
+strip_spaces = false              # true if your app password was shown with spaces
+# --- command: your own sender; gets WR_TO, WR_SUBJECT, WR_HTML_FILE and WR_TEXT_FILE ---
+command = ""
+
+[schedule]
+git_sync = false                  # true = pull before and push after each send (data folder is a git repo)
+on_failure_command = ""           # optional: run on failure, with WR_MESSAGE set

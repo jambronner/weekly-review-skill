@@ -1,0 +1,11 @@
+# Never commit a data folder, history, caches or secrets to this repository.
+__pycache__/
+*.pyc
+.DS_Store
+.weekly-review/
+history/
+cache/
+out/
+config/
+*.env
+.env*
